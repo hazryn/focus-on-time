@@ -1,7 +1,7 @@
 <template>
   <ul>
-    <li v-for="resource in resources" :key="resource.id">
-      <resource-item :resource="resource" @click="$emit('onSelectResource')"/>
+    <li v-for="task in tasks" :key="task.id">
+      <task-item :task="task" @click="onClick"/>
     </li>
   </ul>
 </template>
@@ -9,12 +9,17 @@
 <script>
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import ResourceItem from '../molecules/ResourceItem';
+import TaskItem from '../molecules/TaskItem';
 
 @Component({
-  components: { ResourceItem },
+  components: { TaskItem, ResourceItem },
 })
-export default class ResourcesList extends Vue {
-  @Prop({ required: true }) resources;
+export default class TasksList extends Vue {
+  @Prop({ required: true, type: Array }) tasks;
+
+  onClick(task) {
+    this.$emit('click', task);
+  }
 }
 </script>
 
@@ -23,5 +28,9 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  max-height: 534px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
-  <div id="resources">
-    <resources-list :resources="resources" @onSelectResource="onSelectResource"/>
+  <div id="search">
+    <loading-overlay :loading="loading"/>
+    <input-field @change="onSearch" placeholder="search..." :value="task ? task.key : ''"/>
+    <tasks-list :tasks="tasks" @click="onSelect"/>
   </div>
 </template>
 
@@ -8,32 +10,64 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { remote } from 'electron';
 import ResourcesList from '@/components/organisms/ResourcesList';
-import { mapGetters, mapMutations } from 'vuex';
-import { CloudResource } from '@/store/account/state';
+import InputField from '@/components/atoms/InputField';
+import TasksList from '@/components/organisms/TasksList';
+import { mapState } from 'vuex';
+import LoadingOverlay from '@/components/molecules/LoadingOverlay';
 
 @Component({
-  components: { ResourcesList },
-  inject: ['accountModule'],
+  components: { LoadingOverlay, TasksList, InputField, ResourcesList },
+  inject: ['workModule'],
   computed: {
-    ...mapGetters('Account', {
-      resources: 'GET_RESOURCES',
-    }),
+    ...mapState('Work', ['task']),
   },
-  methods: {
-    ...mapMutations('Account', {
-      setCurrentResource: 'SET_CURRENT_RESOURCE',
-    }),
-  },
+  data: () => ({
+    loading: false,
+    timeout: null,
+    tasks: [],
+  }),
 })
-export default class Resources extends Vue {
+export default class Search extends Vue {
   mounted() {
+    this.tasks = [];
+
     remote.getCurrentWindow()
-      .setContentSize(330, 240);
+      .setContentSize(330, 600);
+
+    if (this.task?.name.length > 2) {
+      this.doSearch(this.task.name);
+    }
   }
 
   onSelectResource(resource) {
     this.setCurrentResource(resource);
     this.$router.push({ name: 'Home' });
+  }
+
+  onSelect(task) {
+    this.workModule.setTask(task);
+    this.$router.push({ name: 'Home' });
+  }
+
+  onSearch(value) {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    if (value.length > 1) {
+      this.timeout = setTimeout(this.doSearch.bind(this, value), 500);
+    }
+  }
+
+  async doSearch(value) {
+    try {
+      this.loading = true;
+      this.tasks = await this.workModule.search(value);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.timeout = null;
+      this.loading = false;
+    }
   }
 }
 </script>

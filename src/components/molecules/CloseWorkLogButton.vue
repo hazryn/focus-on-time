@@ -1,15 +1,16 @@
 <template>
-  <button-element title="Your work log" @click="onClick" :disabled="disabled" height="18">
-    <save-icon height="14" width="14" :disabled="disabled"/>
+  <button-element class="button" title="Close" @click="onClick" :disabled="disabled" height="18">
+    <close-rounded-icon height="24" width="24" :disabled="disabled"/>
+    <div><slot/></div>
   </button-element>
 </template>
 
 <script>
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import ButtonElement from '@/components/atoms/ButtonElement.vue';
-import SaveIcon from '../atoms/icons/SaveIcon';
+import CloseRoundedIcon from '../atoms/icons/CloseRoundedIcon';
 
-@Component({ components: { SaveIcon, ButtonElement } })
+@Component({ components: { CloseRoundedIcon, ButtonElement } })
 export default class WorkLogButton extends Vue {
   @Prop({ type: Boolean, default: false }) disabled;
 
@@ -18,3 +19,12 @@ export default class WorkLogButton extends Vue {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.button {
+  padding: 10px;
+  &:hover {
+    background-color:#dadada !important;
+  }
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-  <button-element title="Sign in" @click="onClick" :disabled="disabled" height="18">
-    <lock-icon height="14" width="14" :disabled="disabled"/>
+  <button-element title="Logout" @click="onClick" :disabled="disabled" height="18">
+    <logout-icon height="14" width="14" :disabled="disabled"/>
   </button-element>
 </template>
 
@@ -8,9 +8,10 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import LockIcon from '@/components/atoms/icons/SignInIcon.vue';
 import ButtonElement from '@/components/atoms/ButtonElement.vue';
+import LogoutIcon from '../atoms/icons/LogoutIcon';
 
-@Component({ components: { ButtonElement, LockIcon } })
-export default class LoginButton extends Vue {
+@Component({ components: { LogoutIcon, ButtonElement, LockIcon } })
+export default class LogoutButton extends Vue {
   @Prop({ type: Boolean, default: false }) disabled;
 
   onClick() {

@@ -22,3 +22,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+.idea
+#Electron-builder output
+/dist_electron

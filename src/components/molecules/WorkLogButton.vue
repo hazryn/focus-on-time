@@ -1,16 +1,16 @@
 <template>
-  <button-element title="Choose account" @click="onClick" :disabled="disabled">
-    <cloud-icon height="14" width="14" :disabled="disabled"/>
+  <button-element title="Your work log" @click="onClick" :disabled="disabled" height="18">
+    <work-log-icon height="14" width="14" :disabled="disabled"/>
   </button-element>
 </template>
 
 <script>
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import ButtonElement from '@/components/atoms/ButtonElement.vue';
-import CloudIcon from '../atoms/icons/CloudIcon';
+import WorkLogIcon from '@/components/atoms/icons/WorkLogIcon';
 
-@Component({ components: { CloudIcon, ButtonElement } })
-export default class AccountButton extends Vue {
+@Component({ components: { WorkLogIcon, ButtonElement } })
+export default class WorkLogButton extends Vue {
   @Prop({ type: Boolean, default: false }) disabled;
 
   onClick() {

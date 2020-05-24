@@ -1,38 +1,79 @@
 <template>
-  <div id="search-bar">
-    <button-element>
-      <template v-if="task">
-
-      </template>
-      <template v-else>
-        <b>NONE</b>
-      </template>
-    </button-element>
+  <div id="task-time" :class="{'blinking': (currentWorkLog && currentWorkLog.paused) || blinking }">
+    {{ currentTime | time }}
   </div>
 </template>
 
 <script>
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import ButtonElement from '@/components/atoms/ButtonElement.vue';
-import UserAvatar from '@/components/molecules/UserAvatar';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 
 @Component({
-  components: { UserAvatar, ButtonElement },
+  inject: ['workModule'],
   computed: {
-    ...mapGetters('Account', {
-      avatar: 'GET_AVATAR',
-      displayName: 'GET_DISPLAY_NAME',
+    ...mapGetters('Work', {
+      currentTask: 'GET_TASK',
+      currentWorkLog: 'GET_CURRENT_WORK_LOG',
     }),
   },
+  data: () => ({
+    prevTime: null,
+    currentTime: null,
+    blinking: false,
+  }),
+  filters: {
+    time(time) {
+      if (time === null) return '';
+
+      const hours = parseInt(time / 60, 10);
+      const minutes = parseInt(time - hours * 60, 10);
+
+      return `${hours}h ${minutes}m`;
+    },
+  },
 })
-export default class SearchElement extends Vue {
+export default class TaskTimeElement extends Vue {
   @Prop({ type: Object }) task;
+
+  @Watch('task')
+  watchTask() {
+    this.calculateTime();
+  }
+
+  created() {
+    this.calculateTime();
+    setInterval(this.calculateTime, 1000);
+  }
+
+  async calculateTime() {
+    this.currentTime = this.workModule.getCurrentTaskTime();
+    if (
+      this.prevTime !== null
+      && this.currentTime > 0
+      && this.prevTime !== this.currentTime
+      && this.currentTime % 30 === 0
+    ) {
+      this.blinking = true;
+      setTimeout(() => { this.blinking = false; }, 4000);
+    }
+    this.prevTime = this.currentTime;
+  }
 }
 </script>
 
 <style scoped lang="scss">
-.button {
-  width: 100px;
+#task-time {
+  width: 60px;
+  background-color: white;
+  text-align: center;
+  font-size:12px;
+}
+.blinking {
+  animation: blinker 2s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    color: red;
+  }
 }
 </style>

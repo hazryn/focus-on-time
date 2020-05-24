@@ -1,18 +1,16 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <div id="home"></div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import { Component, Vue } from 'vue-property-decorator';
+import { remote } from 'electron';
 
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld,
-  },
-};
+@Component
+export default class Home extends Vue {
+  mounted() {
+    remote.getCurrentWindow()
+      .setContentSize(330, 40);
+  }
+}
 </script>

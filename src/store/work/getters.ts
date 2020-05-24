@@ -1,28 +1,13 @@
-import { AccountState } from '@/store/account/state';
-import path from 'path';
-
-declare const __static: string;
+import { WorkState } from '@/store/work/interfaces';
 
 export default {
-  GET_AVATAR(state: AccountState) {
-    return state.avatar || path.join(__static, 'atlassian.png');
+  GET_TASK(state: WorkState) {
+    return state.task;
   },
-  GET_DISPLAY_NAME(state: AccountState) {
-    return state.username || '';
+  GET_CURRENT_WORK_LOG(state: WorkState) {
+    return state.workLog.find((t) => t.paused || t.time.some((w) => !w.endTime)) || null;
   },
-  IS_LOGGED(state: AccountState) {
-    return state.id !== null;
-  },
-  GET_TOKEN(state: AccountState) {
-    return state.token;
-  },
-  GET_REFRESH_TOKEN(state: AccountState) {
-    return state.refreshToken;
-  },
-  GET_RESOURCE(state: AccountState) {
-    return state.resource;
-  },
-  GET_RESOURCES(state: AccountState) {
-    return state.resources;
+  GET_CHECKED(state: WorkState) {
+    return state.workLog.filter((w) => w.checked);
   },
 };

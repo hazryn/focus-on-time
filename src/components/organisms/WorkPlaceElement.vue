@@ -1,15 +1,32 @@
 <template>
   <div id="workplace">
-    ikona :)
+    <user-avatar :src="avatar" :display-name="displayName"/>
+    <search-element :task="task" @click="$emit('onOpenSearch')"/>
+    <task-time-element :task="task"/>
   </div>
 </template>
 
 <script>
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import ButtonElement from '@/components/atoms/ButtonElement.vue';
+import UserAvatar from '@/components/molecules/UserAvatar';
+import { mapGetters } from 'vuex';
+import SearchElement from '@/components/organisms/SearchElement';
+import TaskTimeElement from '@/components/organisms/TaskTimeElement';
 
-@Component({ components: { ButtonElement } })
-export default class WorkPlaceEhelent extends Vue {
+@Component({
+  components: { TaskTimeElement, SearchElement, UserAvatar, ButtonElement },
+  computed: {
+    ...mapGetters('Work', {
+      task: 'GET_TASK',
+    }),
+    ...mapGetters('Account', {
+      avatar: 'GET_AVATAR',
+      displayName: 'GET_DISPLAY_NAME',
+    }),
+  },
+})
+export default class WorkPlaceElement extends Vue {
   @Prop({ default: false, type: Boolean }) logged;
 }
 </script>
@@ -19,7 +36,7 @@ export default class WorkPlaceEhelent extends Vue {
   background-color:#484848;
   display: flex;
   justify-content: space-between;
-  height: 18px;
-  line-height: 18px;
+  height: 22px;
+  line-height: 22px;
 }
 </style>

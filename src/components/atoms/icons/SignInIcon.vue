@@ -24,7 +24,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class LockIcon extends Vue {
+export default class SignInIcon extends Vue {
   @Prop({ default: false, type: Boolean }) disabled;
 
   get color() {
