@@ -2,7 +2,10 @@
   "name": "focus-on-time",
   "version": "2.0.0",
   "private": true,
+  "author": "Przemysław Szejna <przemyslaw.szejna@recode-software.eu>",
   "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
