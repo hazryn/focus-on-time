@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'no-underscore-dangle': 'off',
     'no-useless-constructor': 'off',
+    'linebreak-style': 'off'
   },
   overrides: [
     {
