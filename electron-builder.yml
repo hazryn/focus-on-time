@@ -14,7 +14,7 @@ dmg:
       y: 150
       type: file
 mac:
-  icon: build/icons/icon/icns
+  icon: build/icons/icon.png
 win:
   icon: build/icons/icon.png
 linux:
