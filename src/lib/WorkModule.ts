@@ -8,7 +8,6 @@ export class WorkModule {
 
   constructor(
     private readonly store: any,
-    private readonly electronStore: any,
   ) {}
 
   public async search(phrase: string): Promise<Task[]> {
@@ -120,6 +119,9 @@ export class WorkModule {
     if (!this.isWorkLogValid()) throw new Error('Some work log entries are invalid');
 
     const promises = workLogs.map((workLog: WorkLog) => this.sendWorkLog(workLog));
+    workLogs.map(this.remove.bind(this));
+
+    this.store.state.Work.workLog = this.store.state.Work.workLog.filter((w: WorkLog) => !w.checked);
 
     return Promise.all(promises);
   }

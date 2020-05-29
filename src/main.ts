@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
 
 const electronStore = new ElectronStore();
 const accountModule = new AccountModule(store, electronStore, router);
-const workModule = new WorkModule(store, electronStore);
+const workModule = new WorkModule(store);
 
 new Vue({
   router,

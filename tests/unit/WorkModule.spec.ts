@@ -3,8 +3,7 @@ import { WorkLog } from '@/store/work/interfaces';
 
 describe('WorkModule', () => {
   const store = {};
-  const electronStore = {};
-  const workModule = new WorkModule(store, electronStore);
+  const workModule = new WorkModule(store);
 
   describe('#calculateTimeForWorkLog', () => {
     it('should return 2 hours difference', () => {

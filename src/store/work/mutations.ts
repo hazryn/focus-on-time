@@ -69,6 +69,7 @@ const SET_WORK_DESCRIPTION = (state: WorkState, { workLog, value }: { workLog: W
     const changedWorkLog = Object.assign(state.workLog[index], { description: value });
     Vue.set(state.workLog, index, changedWorkLog);
   }
+  console.log(state.workLog);
 };
 
 export default {

@@ -16,7 +16,6 @@ export default class SaveWorkLogButton extends Vue {
 
   onClick() {
     if (!this.disabled) {
-      console.log('click1');
       this.$emit('click');
     }
   }

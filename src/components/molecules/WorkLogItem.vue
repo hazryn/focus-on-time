@@ -12,7 +12,7 @@
         {{ workLogTime | time }} | {{ getWorkLogEndTime | hours }}
       </div>
       <div class="description">
-        <input-field placeholder="description..." @change="onDescriptionChange" :error="inputError"/>
+        <input-field :value="workLog.description" placeholder="description..." @change="onDescriptionChange" :error="inputError"/>
       </div>
       <div class="close-hover">
         <close-button @click="onRemove"/>
@@ -60,6 +60,12 @@ export default class WorkLogItem extends Vue {
       return `${this.workLog.name.slice(0, 24).trim()}...`;
     }
     return this.workLog.name;
+  }
+
+  mounted() {
+    console.log(this.workLog.description);
+    this.inputValue = this.workLog.description;
+    this.setInputValidation();
   }
 
   created() {
