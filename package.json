@@ -1,7 +1,7 @@
 {
   "name": "focus-on-time",
   "description": "An application to help logging your time in Jira Software",
-  "version": "v0.2.0",
+  "version": "v0.2.1",
   "private": true,
   "author": "Przemysław Szejna <przemyslaw.szejna@recode-software.eu>",
   "homepage": "https://github.com/hazryn/focus-on-time",

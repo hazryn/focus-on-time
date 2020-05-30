@@ -5,12 +5,7 @@ import {
 } from 'vue-cli-plugin-electron-builder/lib';
 import { autoUpdater } from 'electron-updater';
 
-Object.defineProperty(app, 'isPackaged', {
-  get() {
-    return true;
-  }
-});
-
+let updateDownloaded = false;
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -60,11 +55,7 @@ function createWindow() {
 }
 
 autoUpdater.on('update-downloaded', () => {
-  autoUpdater.quitAndInstall(true, true);
-  setTimeout(() => {
-    app.relaunch();
-    app.exit(0);
-  }, 2000);
+  updateDownloaded = true;
 });
 
 app.on('window-all-closed', () => {
@@ -108,4 +99,11 @@ if (isDevelopment) {
 }
 ipcMain.on('close', () => {
   app.exit();
+});
+
+app.on("before-quit", () => {
+  console.log("before-quit called");
+  if(updateDownloaded) {
+    autoUpdater.quitAndInstall();
+  }
 });
