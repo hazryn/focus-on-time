@@ -7,14 +7,11 @@ on:
 
 jobs:
   release:
-
+    name: Release App
     runs-on: ${{ matrix.os }}
-
     strategy:
       matrix:
-        os: [ubuntu-latest]
-#        os: [macos-latest, ubuntu-latest, windows-latest]
-
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v1
@@ -24,7 +21,7 @@ jobs:
         with:
           node-version: 12
 
-      - name: Build/release Electron app
+      - name: Build and release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         env:
           ALLOW_ELECTRON_BUILDER_AS_PRODUCTION_DEPENDENCY: true
@@ -32,5 +29,3 @@ jobs:
           release: ${{ startsWith(github.ref, 'refs/tags/v') }}
           github_token: ${{ secrets.GH_TOKEN }}
           use_vue_cli: true
-
-

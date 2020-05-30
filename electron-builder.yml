@@ -13,23 +13,27 @@ dmg:
     - x: 130
       y: 150
       type: file
-#mac:
-#  icon: build/icons/icon.png
-#win:
-#  icon: build/icons/icon.png
-#  target:
-#    - target: nsis
-#      arch:
-#        - x64
-#        - ia32
+  publish:
+    - provider: github
+mac:
+  icon: build/icons/icon.png
+win:
+  icon: build/icons/icon.png
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+  publish:
+    - provider: github
 linux:
   icon: build/icons/icon.png
   target:
     - target: deb
       arch:
         - x64
-#        - ia32
-#    - target: rpm
-#      arch:
-#        - x64
-#        - ia32
+        - ia32
+    - target: rpm
+      arch:
+        - x64
+        - ia32

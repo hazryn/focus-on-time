@@ -3,6 +3,13 @@ import {
   createProtocol,
   /* installVueDevtools */
 } from 'vue-cli-plugin-electron-builder/lib';
+import { autoUpdater } from 'electron-updater';
+
+Object.defineProperty(app, 'isPackaged', {
+  get() {
+    return true;
+  }
+});
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -48,7 +55,17 @@ function createWindow() {
   win.on('closed', () => {
     win = null;
   });
+
+
 }
+
+autoUpdater.on('update-downloaded', () => {
+  autoUpdater.quitAndInstall(true, true);
+  setTimeout(() => {
+    app.relaunch();
+    app.exit(0);
+  }, 2000);
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
@@ -74,6 +91,10 @@ app.on('ready', async () => {
 
   }
   createWindow();
+  console.log('asdasd')
+  autoUpdater.checkForUpdatesAndNotify()
+    .then(console.log)
+    .catch(({ message }) => console.error(message));
 });
 
 if (isDevelopment) {
