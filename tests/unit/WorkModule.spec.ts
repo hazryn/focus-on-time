@@ -11,9 +11,9 @@ describe('WorkModule', () => {
         time: [
           {
             startTime: new Date('2020-01-01 10:00'),
-            endTime: new Date('2020-01-01 12:00')
-          }
-        ]
+            endTime: new Date('2020-01-01 12:00'),
+          },
+        ],
       } as unknown as WorkLog;
 
       const result = workModule.calculateTimeForWorkLog(workLog);
@@ -25,9 +25,9 @@ describe('WorkModule', () => {
         time: [
           {
             startTime: new Date('2020-01-01 10:00'),
-            endTime: new Date('2020-01-01 12:56')
-          }
-        ]
+            endTime: new Date('2020-01-01 12:56'),
+          },
+        ],
       } as unknown as WorkLog;
 
       const result = workModule.calculateTimeForWorkLog(workLog);
@@ -39,9 +39,9 @@ describe('WorkModule', () => {
         time: [
           {
             startTime: new Date('2020-01-01 10:00'),
-            endTime: new Date('2020-01-01 10:00:55')
-          }
-        ]
+            endTime: new Date('2020-01-01 10:00:55'),
+          },
+        ],
       } as unknown as WorkLog;
 
       const result = workModule.calculateTimeForWorkLog(workLog);
@@ -53,9 +53,9 @@ describe('WorkModule', () => {
         time: [
           {
             startTime: new Date('2020-01-01 10:00'),
-            endTime: new Date('2020-01-01 10:01')
-          }
-        ]
+            endTime: new Date('2020-01-01 10:01'),
+          },
+        ],
       } as unknown as WorkLog;
 
       const result = workModule.calculateTimeForWorkLog(workLog);
@@ -66,7 +66,7 @@ describe('WorkModule', () => {
       const workLog = {
         time: [
           { startTime: new Date('2020-01-01 15:00'), endTime: new Date('2020-01-01 17:45') },
-        ]
+        ],
       } as unknown as WorkLog;
 
       const result = workModule.calculateTimeForWorkLog(workLog);
@@ -78,7 +78,7 @@ describe('WorkModule', () => {
         time: [
           { startTime: new Date('2020-01-01 10:00'), endTime: new Date('2020-01-01 11:00') },
           { startTime: new Date('2020-01-01 12:00'), endTime: new Date('2020-01-01 12:16') },
-        ]
+        ],
       } as unknown as WorkLog;
 
       const result = workModule.calculateTimeForWorkLog(workLog);

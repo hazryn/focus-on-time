@@ -1,4 +1,4 @@
-import { UserResponse } from "@/store/account/interfaces";
+import { UserResponse } from '@/store/account/interfaces';
 
 export interface Task {
   id: string;
